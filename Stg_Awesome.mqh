@@ -57,7 +57,8 @@ struct Stg_Awesome_Params : StgParams {
 
 class Stg_Awesome : public Strategy {
  public:
-  Stg_Awesome(StgParams &_params, Trade *_trade = NULL, string _name = "") : Strategy(_params, _trade, _name) {}
+  Stg_Awesome(StgParams &_sparams, TradeParams &_tparams, ChartParams &_cparams, string _name = "")
+      : Strategy(_sparams, _tparams, _cparams, _name) {}
 
   static Stg_Awesome *Init(ENUM_TIMEFRAMES _tf = NULL, long _magic_no = NULL, ENUM_LOG_LEVEL _log_level = V_INFO) {
     // Initialize strategy initial values.
@@ -70,8 +71,9 @@ class Stg_Awesome : public Strategy {
     AOParams _indi_params(_tf);
     _stg_params.SetIndicator(new Indi_AO(_indi_params));
     // Initialize Strategy instance.
+    ChartParams _cparams(_tf, _Symbol);
     TradeParams _tparams(_magic_no, _log_level);
-    Strategy *_strat = new Stg_Awesome(_stg_params, new Trade(new Chart(_tf, _Symbol)), "Awesome");
+    Strategy *_strat = new Stg_Awesome(_stg_params, _tparams, _cparams, "Awesome");
     return _strat;
   }
 
