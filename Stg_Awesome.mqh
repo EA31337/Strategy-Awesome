@@ -18,6 +18,8 @@ INPUT float Awesome_PriceStopLevel = 0;         // Price stop level
 INPUT int Awesome_TickFilterMethod = 1;         // Tick filter method
 INPUT float Awesome_MaxSpread = 4.0;            // Max spread to trade (pips)
 INPUT short Awesome_Shift = 0;                  // Shift (relative to the current bar, 0 - default)
+INPUT float Awesome_OrderCloseLoss = 0;         // Order close loss
+INPUT float Awesome_OrderCloseProfit = 0;       // Order close profit
 INPUT int Awesome_OrderCloseTime = -20;         // Order close time in mins (>0) or bars (<0)
 INPUT_GROUP("Awesome strategy: Awesome indicator params");
 INPUT int Awesome_Indi_Awesome_Shift = 0;  // Shift
@@ -35,7 +37,11 @@ struct Stg_Awesome_Params_Defaults : StgParams {
       : StgParams(::Awesome_SignalOpenMethod, ::Awesome_SignalOpenFilterMethod, ::Awesome_SignalOpenLevel,
                   ::Awesome_SignalOpenBoostMethod, ::Awesome_SignalCloseMethod, ::Awesome_SignalCloseFilter,
                   ::Awesome_SignalCloseLevel, ::Awesome_PriceStopMethod, ::Awesome_PriceStopLevel,
-                  ::Awesome_TickFilterMethod, ::Awesome_MaxSpread, ::Awesome_Shift, ::Awesome_OrderCloseTime) {}
+                  ::Awesome_TickFilterMethod, ::Awesome_MaxSpread, ::Awesome_Shift) {
+    Set(STRAT_PARAM_OCL, Awesome_OrderCloseLoss);
+    Set(STRAT_PARAM_OCP, Awesome_OrderCloseProfit);
+    Set(STRAT_PARAM_OCT, Awesome_OrderCloseTime);
+  }
 } stg_awesome_defaults;
 
 // Struct to define strategy parameters to override.
