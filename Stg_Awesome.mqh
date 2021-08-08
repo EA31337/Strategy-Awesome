@@ -8,7 +8,7 @@ INPUT string __Awesome_Parameters__ = "-- Awesome strategy params --";  // >>> A
 INPUT float Awesome_LotSize = 0;                                        // Lot size
 INPUT int Awesome_SignalOpenMethod = 8;                                 // Signal open method (-127-127)
 INPUT float Awesome_SignalOpenLevel = 0.0f;                             // Signal open level (>0.0001)
-INPUT int Awesome_SignalOpenFilterMethod = 32;                           // Signal open filter method (0-1)
+INPUT int Awesome_SignalOpenFilterMethod = 32;                          // Signal open filter method (0-1)
 INPUT int Awesome_SignalOpenBoostMethod = 0;                            // Signal open boost method (0-1)
 INPUT float Awesome_SignalCloseLevel = 0.0f;                            // Signal close level (>0.0001)
 INPUT int Awesome_SignalCloseMethod = 2;                                // Signal close method (-127-127)
@@ -82,26 +82,27 @@ class Stg_Awesome : public Strategy {
    */
   bool SignalOpen(ENUM_ORDER_TYPE _cmd, int _method = 0, float _level = 0.0f, int _shift = 0) {
     Indi_AO *_indi = GetIndicator();
-    bool _is_valid = _indi[CURR].IsValid();
-    bool _result = _is_valid;
-    if (_is_valid) {
-      IndicatorSignal _signals = _indi.GetSignals(4, _shift);
-      switch (_cmd) {
-        case ORDER_TYPE_BUY:
-          // Signal "saucer": 3 positive columns, medium column is smaller than 2 others.
-          _result = _indi[CURR][0] < 0 && _indi.IsIncreasing(3);
-          _result &= _indi.IsIncByPct(_level, 0, 0, 2);
-          _result &= _method > 0 ? _signals.CheckSignals(_method) : _signals.CheckSignalsAll(-_method);
-          // @todo: Signal: Changing from negative values to positive.
-          break;
-        case ORDER_TYPE_SELL:
-          // Signal "saucer": 3 negative columns, medium column is larger than 2 others.
-          _result = _indi[CURR][0] > 0 && _indi.IsDecreasing(3);
-          _result &= _indi.IsDecByPct(-_level, 0, 0, 2);
-          _result &= _method > 0 ? _signals.CheckSignals(_method) : _signals.CheckSignalsAll(-_method);
-          // @todo: Signal: Changing from positive values to negative.
-          break;
-      }
+    bool _result = _indi.GetFlag(INDI_ENTRY_FLAG_IS_VALID);
+    if (!_result) {
+      // Returns false when indicator data is not valid.
+      return false;
+    }
+    IndicatorSignal _signals = _indi.GetSignals(4, _shift);
+    switch (_cmd) {
+      case ORDER_TYPE_BUY:
+        // Signal "saucer": 3 positive columns, medium column is smaller than 2 others.
+        _result = _indi[CURR][0] < 0 && _indi.IsIncreasing(3);
+        _result &= _indi.IsIncByPct(_level, 0, 0, 2);
+        _result &= _method > 0 ? _signals.CheckSignals(_method) : _signals.CheckSignalsAll(-_method);
+        // @todo: Signal: Changing from negative values to positive.
+        break;
+      case ORDER_TYPE_SELL:
+        // Signal "saucer": 3 negative columns, medium column is larger than 2 others.
+        _result = _indi[CURR][0] > 0 && _indi.IsDecreasing(3);
+        _result &= _indi.IsDecByPct(-_level, 0, 0, 2);
+        _result &= _method > 0 ? _signals.CheckSignals(_method) : _signals.CheckSignalsAll(-_method);
+        // @todo: Signal: Changing from positive values to negative.
+        break;
     }
     return _result;
   }
