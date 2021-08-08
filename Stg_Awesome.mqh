@@ -12,6 +12,7 @@ INPUT int Awesome_SignalOpenFilterMethod = 32;  // Signal open filter method (0-
 INPUT int Awesome_SignalOpenBoostMethod = 0;    // Signal open boost method (0-1)
 INPUT float Awesome_SignalCloseLevel = 0.0f;    // Signal close level (>0.0001)
 INPUT int Awesome_SignalCloseMethod = 2;        // Signal close method (-127-127)
+INPUT int Awesome_SignalCloseFilter = 0;        // Signal close filter (-127-127)
 INPUT int Awesome_PriceStopMethod = 1;          // Price stop method
 INPUT float Awesome_PriceStopLevel = 0;         // Price stop level
 INPUT int Awesome_TickFilterMethod = 1;         // Tick filter method
@@ -32,9 +33,9 @@ struct Indi_Awesome_Params_Defaults : AOParams {
 struct Stg_Awesome_Params_Defaults : StgParams {
   Stg_Awesome_Params_Defaults()
       : StgParams(::Awesome_SignalOpenMethod, ::Awesome_SignalOpenFilterMethod, ::Awesome_SignalOpenLevel,
-                  ::Awesome_SignalOpenBoostMethod, ::Awesome_SignalCloseMethod, ::Awesome_SignalCloseLevel,
-                  ::Awesome_PriceStopMethod, ::Awesome_PriceStopLevel, ::Awesome_TickFilterMethod, ::Awesome_MaxSpread,
-                  ::Awesome_Shift, ::Awesome_OrderCloseTime) {}
+                  ::Awesome_SignalOpenBoostMethod, ::Awesome_SignalCloseMethod, ::Awesome_SignalCloseFilter,
+                  ::Awesome_SignalCloseLevel, ::Awesome_PriceStopMethod, ::Awesome_PriceStopLevel,
+                  ::Awesome_TickFilterMethod, ::Awesome_MaxSpread, ::Awesome_Shift, ::Awesome_OrderCloseTime) {}
 } stg_awesome_defaults;
 
 // Struct to define strategy parameters to override.
