@@ -14,7 +14,6 @@ struct Stg_Awesome_Params_M30 : StgParams {
   Stg_Awesome_Params_M30() : StgParams(stg_awesome_defaults) {
     lot_size = 0;
     signal_open_method = 8;
-    signal_open_filter = 32;
     signal_open_level = (float)20;
     signal_open_boost = 0;
     signal_close_method = 2;
