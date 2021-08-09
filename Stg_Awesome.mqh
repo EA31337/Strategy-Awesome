@@ -9,6 +9,7 @@ INPUT float Awesome_LotSize = 0;                // Lot size
 INPUT int Awesome_SignalOpenMethod = 8;         // Signal open method (-127-127)
 INPUT float Awesome_SignalOpenLevel = 0.0f;     // Signal open level (>0.0001)
 INPUT int Awesome_SignalOpenFilterMethod = 32;  // Signal open filter method (0-1)
+INPUT int Awesome_SignalOpenFilterTime = 6;     // Signal open filter time (0-1)
 INPUT int Awesome_SignalOpenBoostMethod = 0;    // Signal open boost method (0-1)
 INPUT float Awesome_SignalCloseLevel = 0.0f;    // Signal close level (>0.0001)
 INPUT int Awesome_SignalCloseMethod = 2;        // Signal close method (-127-127)
@@ -41,6 +42,7 @@ struct Stg_Awesome_Params_Defaults : StgParams {
     Set(STRAT_PARAM_OCL, Awesome_OrderCloseLoss);
     Set(STRAT_PARAM_OCP, Awesome_OrderCloseProfit);
     Set(STRAT_PARAM_OCT, Awesome_OrderCloseTime);
+    Set(STRAT_PARAM_SOFT, Awesome_SignalOpenFilterTime);
   }
 } stg_awesome_defaults;
 
