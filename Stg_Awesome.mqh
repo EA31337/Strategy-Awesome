@@ -6,15 +6,15 @@
 // User input params.
 INPUT_GROUP("Awesome strategy: strategy params");
 INPUT float Awesome_LotSize = 0;                // Lot size
-INPUT int Awesome_SignalOpenMethod = 8;         // Signal open method (-127-127)
+INPUT int Awesome_SignalOpenMethod = 2;         // Signal open method (-127-127)
 INPUT float Awesome_SignalOpenLevel = 0.0f;     // Signal open level (>0.0001)
-INPUT int Awesome_SignalOpenFilterMethod = 32;  // Signal open filter method (0-1)
-INPUT int Awesome_SignalOpenFilterTime = 6;     // Signal open filter time (0-1)
+INPUT int Awesome_SignalOpenFilterMethod = 32;  // Signal open filter method
+INPUT int Awesome_SignalOpenFilterTime = 6;     // Signal open filter time
 INPUT int Awesome_SignalOpenBoostMethod = 0;    // Signal open boost method
 INPUT float Awesome_SignalCloseLevel = 0.0f;    // Signal close level (>0.0001)
 INPUT int Awesome_SignalCloseMethod = 2;        // Signal close method (-127-127)
-INPUT int Awesome_SignalCloseFilter = 0;        // Signal close filter (-127-127)
-INPUT int Awesome_PriceStopMethod = 1;          // Price stop method
+INPUT int Awesome_SignalCloseFilter = 16;       // Signal close filter (-127-127)
+INPUT int Awesome_PriceStopMethod = 1;          // Price stop method (0-127)
 INPUT float Awesome_PriceStopLevel = 0;         // Price stop level
 INPUT int Awesome_TickFilterMethod = 1;         // Tick filter method
 INPUT float Awesome_MaxSpread = 4.0;            // Max spread to trade (pips)
@@ -100,14 +100,14 @@ class Stg_Awesome : public Strategy {
       case ORDER_TYPE_BUY:
         // Signal "saucer": 3 positive columns, medium column is smaller than 2 others.
         _result = _indi[CURR][0] < 0 && _indi.IsIncreasing(3);
-        _result &= _indi.IsIncByPct(_level, 0, 0, 2);
+        _result &= _indi.IsIncByPct(_level, 0, 0, 3);
         _result &= _method > 0 ? _signals.CheckSignals(_method) : _signals.CheckSignalsAll(-_method);
         // @todo: Signal: Changing from negative values to positive.
         break;
       case ORDER_TYPE_SELL:
         // Signal "saucer": 3 negative columns, medium column is larger than 2 others.
         _result = _indi[CURR][0] > 0 && _indi.IsDecreasing(3);
-        _result &= _indi.IsDecByPct(-_level, 0, 0, 2);
+        _result &= _indi.IsDecByPct(-_level, 0, 0, 3);
         _result &= _method > 0 ? _signals.CheckSignals(_method) : _signals.CheckSignalsAll(-_method);
         // @todo: Signal: Changing from positive values to negative.
         break;
