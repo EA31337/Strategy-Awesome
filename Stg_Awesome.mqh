@@ -92,7 +92,8 @@ class Stg_Awesome : public Strategy {
    */
   bool SignalOpen(ENUM_ORDER_TYPE _cmd, int _method = 0, float _level = 0.0f, int _shift = 0) {
     Indi_AO *_indi = GetIndicator();
-    bool _result = _indi.GetFlag(INDI_ENTRY_FLAG_IS_VALID);
+    bool _result =
+        _indi.GetFlag(INDI_ENTRY_FLAG_IS_VALID, _shift) && _indi.GetFlag(INDI_ENTRY_FLAG_IS_VALID, _shift + 4);
     if (!_result) {
       // Returns false when indicator data is not valid.
       return false;
@@ -101,15 +102,15 @@ class Stg_Awesome : public Strategy {
     switch (_cmd) {
       case ORDER_TYPE_BUY:
         // Signal "saucer": 3 positive columns, medium column is smaller than 2 others.
-        _result = _indi[CURR][0] < 0 && _indi.IsIncreasing(3);
-        _result &= _indi.IsIncByPct(_level, 0, 0, 3);
+        _result = _indi[_shift][0] < 0 && _indi.IsIncreasing(2, 0, _shift);
+        _result &= _indi.IsIncByPct(_level, 0, _shift, 3);
         _result &= _method > 0 ? _signals.CheckSignals(_method) : _signals.CheckSignalsAll(-_method);
         // @todo: Signal: Changing from negative values to positive.
         break;
       case ORDER_TYPE_SELL:
         // Signal "saucer": 3 negative columns, medium column is larger than 2 others.
-        _result = _indi[CURR][0] > 0 && _indi.IsDecreasing(3);
-        _result &= _indi.IsDecByPct(-_level, 0, 0, 3);
+        _result = _indi[_shift][0] > 0 && _indi.IsDecreasing(2, 0, _shift);
+        _result &= _indi.IsDecByPct(-_level, 0, _shift, 3);
         _result &= _method > 0 ? _signals.CheckSignals(_method) : _signals.CheckSignalsAll(-_method);
         // @todo: Signal: Changing from positive values to negative.
         break;
