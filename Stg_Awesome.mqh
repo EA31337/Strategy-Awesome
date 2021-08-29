@@ -39,6 +39,7 @@ struct Stg_Awesome_Params_Defaults : StgParams {
                   ::Awesome_SignalOpenBoostMethod, ::Awesome_SignalCloseMethod, ::Awesome_SignalCloseFilter,
                   ::Awesome_SignalCloseLevel, ::Awesome_PriceStopMethod, ::Awesome_PriceStopLevel,
                   ::Awesome_TickFilterMethod, ::Awesome_MaxSpread, ::Awesome_Shift) {
+    Set(STRAT_PARAM_LS, Awesome_LotSize);
     Set(STRAT_PARAM_OCL, Awesome_OrderCloseLoss);
     Set(STRAT_PARAM_OCP, Awesome_OrderCloseProfit);
     Set(STRAT_PARAM_OCT, Awesome_OrderCloseTime);
