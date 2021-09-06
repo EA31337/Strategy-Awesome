@@ -19,8 +19,8 @@ INPUT float Awesome_PriceStopLevel = 2;         // Price stop level
 INPUT int Awesome_TickFilterMethod = 32;        // Tick filter method
 INPUT float Awesome_MaxSpread = 4.0;            // Max spread to trade (pips)
 INPUT short Awesome_Shift = 0;                  // Shift (relative to the current bar, 0 - default)
-INPUT float Awesome_OrderCloseLoss = 0;         // Order close loss
-INPUT float Awesome_OrderCloseProfit = 0;       // Order close profit
+INPUT float Awesome_OrderCloseLoss = 80;        // Order close loss
+INPUT float Awesome_OrderCloseProfit = 80;      // Order close profit
 INPUT int Awesome_OrderCloseTime = -30;         // Order close time in mins (>0) or bars (<0)
 INPUT_GROUP("Awesome strategy: Awesome indicator params");
 INPUT int Awesome_Indi_Awesome_Shift = 0;  // Shift
