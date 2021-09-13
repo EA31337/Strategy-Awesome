@@ -47,14 +47,6 @@ struct Stg_Awesome_Params_Defaults : StgParams {
   }
 } stg_awesome_defaults;
 
-// Struct to define strategy parameters to override.
-struct Stg_Awesome_Params : StgParams {
-  StgParams sparams;
-
-  // Struct constructors.
-  Stg_Awesome_Params(StgParams &_sparams) : sparams(stg_awesome_defaults) { sparams = _sparams; }
-};
-
 #ifdef __config__
 // Loads pair specific param values.
 #include "config/H1.h"
