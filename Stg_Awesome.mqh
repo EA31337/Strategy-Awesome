@@ -30,7 +30,7 @@ INPUT int Awesome_Indi_Awesome_Shift = 0;  // Shift
 // Defines struct with default user indicator values.
 struct Indi_Awesome_Params_Defaults : AOParams {
   Indi_Awesome_Params_Defaults() : AOParams(::Awesome_Indi_Awesome_Shift) {}
-} indi_awesome_defaults;
+};
 
 // Defines struct with default user strategy values.
 struct Stg_Awesome_Params_Defaults : StgParams {
@@ -45,7 +45,7 @@ struct Stg_Awesome_Params_Defaults : StgParams {
     Set(STRAT_PARAM_OCT, Awesome_OrderCloseTime);
     Set(STRAT_PARAM_SOFT, Awesome_SignalOpenFilterTime);
   }
-} stg_awesome_defaults;
+};
 
 #ifdef __config__
 // Loads pair specific param values.
@@ -65,7 +65,9 @@ class Stg_Awesome : public Strategy {
 
   static Stg_Awesome *Init(ENUM_TIMEFRAMES _tf = NULL) {
     // Initialize strategy initial values.
+    Indi_Awesome_Params_Defaults indi_awesome_defaults;
     AOParams _indi_params(indi_awesome_defaults, _tf);
+    Stg_Awesome_Params_Defaults stg_awesome_defaults;
     StgParams _stg_params(stg_awesome_defaults);
 #ifdef __config__
     SetParamsByTf<StgParams>(_stg_params, _tf, stg_awesome_m1, stg_awesome_m5, stg_awesome_m15, stg_awesome_m30,
