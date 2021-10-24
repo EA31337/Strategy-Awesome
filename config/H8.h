@@ -4,8 +4,8 @@
  */
 
 // Defines indicator's parameter values for the given pair symbol and timeframe.
-struct Indi_Awesome_Params_H8 : AOParams {
-  Indi_Awesome_Params_H8() : AOParams(indi_awesome_defaults, PERIOD_H8) { shift = 0; }
+struct Indi_Awesome_Params_H8 : IndiAOParams {
+  Indi_Awesome_Params_H8() : IndiAOParams(indi_awesome_defaults, PERIOD_H8) { shift = 0; }
 } indi_awesome_h8;
 
 // Defines strategy's parameter values for the given pair symbol and timeframe.

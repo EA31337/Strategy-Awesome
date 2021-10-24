@@ -28,8 +28,8 @@ INPUT int Awesome_Indi_Awesome_Shift = 0;  // Shift
 // Structs.
 
 // Defines struct with default user indicator values.
-struct Indi_Awesome_Params_Defaults : AOParams {
-  Indi_Awesome_Params_Defaults() : AOParams(::Awesome_Indi_Awesome_Shift) {}
+struct Indi_Awesome_Params_Defaults : IndiAOParams {
+  Indi_Awesome_Params_Defaults() : IndiAOParams(::Awesome_Indi_Awesome_Shift) {}
 };
 
 // Defines struct with default user strategy values.
@@ -66,7 +66,7 @@ class Stg_Awesome : public Strategy {
   static Stg_Awesome *Init(ENUM_TIMEFRAMES _tf = NULL) {
     // Initialize strategy initial values.
     Indi_Awesome_Params_Defaults indi_awesome_defaults;
-    AOParams _indi_params(indi_awesome_defaults, _tf);
+    IndiAOParams _indi_params(indi_awesome_defaults, _tf);
     Stg_Awesome_Params_Defaults stg_awesome_defaults;
     StgParams _stg_params(stg_awesome_defaults);
 #ifdef __config__
