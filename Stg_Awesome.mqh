@@ -65,8 +65,6 @@ class Stg_Awesome : public Strategy {
 
   static Stg_Awesome *Init(ENUM_TIMEFRAMES _tf = NULL) {
     // Initialize strategy initial values.
-    Indi_Awesome_Params_Defaults indi_awesome_defaults;
-    IndiAOParams _indi_params(indi_awesome_defaults, _tf);
     Stg_Awesome_Params_Defaults stg_awesome_defaults;
     StgParams _stg_params(stg_awesome_defaults);
 #ifdef __config__
@@ -78,8 +76,16 @@ class Stg_Awesome : public Strategy {
     ChartParams _cparams(_tf, _Symbol);
     TradeParams _tparams;
     Strategy *_strat = new Stg_Awesome(_stg_params, _tparams, _cparams, "Awesome");
-    _strat.SetIndicator(new Indi_AO(_indi_params));
     return _strat;
+  }
+
+  /**
+   * Event on strategy's init.
+   */
+  void OnInit() {
+    Indi_Awesome_Params_Defaults indi_awesome_defaults;
+    IndiAOParams _indi_params(indi_awesome_defaults, Get<ENUM_TIMEFRAMES>(STRAT_PARAM_TF));
+    SetIndicator(new Indi_AO(_indi_params));
   }
 
   /**
