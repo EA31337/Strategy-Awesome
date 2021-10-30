@@ -26,12 +26,6 @@ INPUT_GROUP("Awesome strategy: Awesome indicator params");
 INPUT int Awesome_Indi_Awesome_Shift = 0;  // Shift
 
 // Structs.
-
-// Defines struct with default user indicator values.
-struct Indi_Awesome_Params_Defaults : IndiAOParams {
-  Indi_Awesome_Params_Defaults() : IndiAOParams(::Awesome_Indi_Awesome_Shift) {}
-};
-
 // Defines struct with default user strategy values.
 struct Stg_Awesome_Params_Defaults : StgParams {
   Stg_Awesome_Params_Defaults()
@@ -83,8 +77,8 @@ class Stg_Awesome : public Strategy {
    * Event on strategy's init.
    */
   void OnInit() {
-    Indi_Awesome_Params_Defaults indi_awesome_defaults;
-    IndiAOParams _indi_params(indi_awesome_defaults, Get<ENUM_TIMEFRAMES>(STRAT_PARAM_TF));
+    IndiAOParams _indi_params(::Awesome_Indi_Awesome_Shift);
+    _indi_params.SetTf(Get<ENUM_TIMEFRAMES>(STRAT_PARAM_TF));
     SetIndicator(new Indi_AO(_indi_params));
   }
 
