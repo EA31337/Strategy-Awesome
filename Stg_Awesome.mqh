@@ -57,7 +57,7 @@ class Stg_Awesome : public Strategy {
   Stg_Awesome(StgParams &_sparams, TradeParams &_tparams, ChartParams &_cparams, string _name = "")
       : Strategy(_sparams, _tparams, _cparams, _name) {}
 
-  static Stg_Awesome *Init(ENUM_TIMEFRAMES _tf = NULL) {
+  static Stg_Awesome *Init(ENUM_TIMEFRAMES _tf = NULL, EA* _ea = NULL) {
     // Initialize strategy initial values.
     Stg_Awesome_Params_Defaults stg_awesome_defaults;
     StgParams _stg_params(stg_awesome_defaults);
